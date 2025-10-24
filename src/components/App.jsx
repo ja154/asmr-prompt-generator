@@ -2,9 +2,9 @@
  * @license
  * SPDX-License-Identifier: Apache-2.0
 */
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { atomOneDark, atomOneLight } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const MOODS = ["Calm", "Cozy", "Mysterious", "Ethereal", "Melancholy", "Dreamy"];
 const CAMERA_MOVEMENTS = ["Static", "Slow Pan", "Slow Zoom In", "Slow Zoom Out", "Dolly", "Handheld"];
@@ -117,6 +117,40 @@ export default function App() {
   const [generatedJson, setGeneratedJson] = useState(null);
   const [validationStatus, setValidationStatus] = useState('unchecked');
   const [copyButtonText, setCopyButtonText] = useState('Copy');
+  const [theme, setTheme] = useState(localStorage.getItem('asmr-veo-theme') || 'dark');
+  const [effectiveTheme, setEffectiveTheme] = useState(theme);
+
+  useEffect(() => {
+    const applyTheme = (t) => {
+      if (t === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        setEffectiveTheme('light');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        setEffectiveTheme('dark');
+      }
+    };
+
+    const handleSystemThemeChange = (e) => {
+      if (theme === 'system') {
+        applyTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    if (theme === 'system') {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      applyTheme(mediaQuery.matches ? 'dark' : 'light');
+      mediaQuery.addEventListener('change', handleSystemThemeChange);
+      return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+    } else {
+      applyTheme(theme);
+    }
+  }, [theme]);
+
+  const handleSetTheme = (newTheme) => {
+    setTheme(newTheme);
+    localStorage.setItem('asmr-veo-theme', newTheme);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -213,8 +247,21 @@ export default function App() {
   return (
     <div className="container">
       <header>
-        <h1>ASMR Veo 3 JSON Prompt Generator</h1>
-        <p>Turn simple ideas into structured, creative JSON prompts for Google Veo 3.</p>
+        <div>
+          <h1>ASMR Veo 3 JSON Prompt Generator</h1>
+          <p>Turn simple ideas into structured, creative JSON prompts for Google Veo 3.</p>
+        </div>
+        <div className="theme-switcher">
+          <button className={`chip ${theme === 'dark' ? 'active' : ''}`} onClick={() => handleSetTheme('dark')} aria-pressed={theme === 'dark'}>
+            <span className="icon">dark_mode</span> Dark
+          </button>
+          <button className={`chip ${theme === 'light' ? 'active' : ''}`} onClick={() => handleSetTheme('light')} aria-pressed={theme === 'light'}>
+            <span className="icon">light_mode</span> Light
+          </button>
+          <button className={`chip ${theme === 'system' ? 'active' : ''}`} onClick={() => handleSetTheme('system')} aria-pressed={theme === 'system'}>
+            <span className="icon">desktop_windows</span> System
+          </button>
+        </div>
       </header>
 
       <main className="main-content">
@@ -294,7 +341,7 @@ export default function App() {
             </div>
             <div className="json-preview">
               {generatedJson ? (
-                <SyntaxHighlighter language="json" style={atomOneDark} customStyle={{ height: '100%' }}>
+                <SyntaxHighlighter language="json" style={effectiveTheme === 'light' ? atomOneLight : atomOneDark} customStyle={{ height: '100%' }}>
                   {generatedJson}
                 </SyntaxHighlighter>
               ) : (
