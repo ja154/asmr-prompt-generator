@@ -67,6 +67,45 @@ const PRESETS = [
       soundscapeQuality: "Muffled",
       visualEffects: ["Soft Glow", "Fog", "Muted Tones"],
     }
+  },
+  {
+    name: "Mystic Forest",
+    settings: {
+      moods: ["Mysterious", "Ethereal", "Calm"],
+      cameraMovement: "Dolly",
+      cameraAngle: "Low Angle",
+      cameraFocus: "Soft Focus",
+      soundscapePrimary: "Forest Ambience",
+      soundscapeSecondary: ["Wind", "Whispering"],
+      soundscapeQuality: "High-Fidelity (Binaural)",
+      visualEffects: ["Fog", "Dust Particles", "Soft Glow"],
+    }
+  },
+  {
+    name: "Sci-Fi Cityscape",
+    settings: {
+      moods: ["Mysterious", "Ethereal"],
+      cameraMovement: "Slow Pan",
+      cameraAngle: "High Angle",
+      cameraFocus: "Deep Focus",
+      soundscapePrimary: "Wind",
+      soundscapeSecondary: ["Whispering"],
+      soundscapeQuality: "Muffled",
+      visualEffects: ["Lens Flare", "Muted Tones", "Fog"],
+    }
+  },
+  {
+    name: "Underwater Tranquility",
+    settings: {
+      moods: ["Calm", "Ethereal", "Dreamy"],
+      cameraMovement: "Dolly",
+      cameraAngle: "Eye-level",
+      cameraFocus: "Soft Focus",
+      soundscapePrimary: "Ocean Waves",
+      soundscapeSecondary: [],
+      soundscapeQuality: "Muffled",
+      visualEffects: ["Soft Glow", "Dust Particles", "Muted Tones"],
+    }
   }
 ];
 
