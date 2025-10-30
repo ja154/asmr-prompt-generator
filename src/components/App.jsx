@@ -10,7 +10,7 @@ const MOODS = ["Calm", "Cozy", "Mysterious", "Ethereal", "Melancholy", "Dreamy"]
 const CAMERA_MOVEMENTS = ["Static", "Slow Pan", "Slow Zoom In", "Slow Zoom Out", "Dolly", "Handheld"];
 const CAMERA_ANGLES = ["Eye-level", "Low Angle", "High Angle", "Dutch Angle", "Close-up", "Wide Shot"];
 const CAMERA_FOCUS = ["Soft Focus", "Deep Focus", "Rack Focus", "Shallow Depth of Field"];
-const PRIMARY_SOUNDS = ["Rain", "Fireplace", "Wind", "Ocean Waves", "Forest Ambience", "Keyboard Typing", "None"];
+const PRIMARY_SOUNDS = ["Rain", "Fireplace", "Wind", "Ocean Waves", "Forest Ambience", "Keyboard Typing", "Tapping on Glass", "Tapping on Wood", "Rubbing Concrete", "Liquid Sounds", "None"];
 const SECONDARY_SOUNDS = ["Thunder", "Birds Chirping", "Pages Turning", "Whispering", "Ticking Clock", "Purring Cat"];
 const SOUND_QUALITIES = ["High-Fidelity (Binaural)", "Lo-fi", "Muffled", "Crisp"];
 const VISUAL_EFFECTS = ["Soft Glow", "Fog", "Muted Tones", "Film Grain", "Lens Flare", "Dust Particles"];
@@ -105,6 +105,19 @@ const PRESETS = [
       soundscapeSecondary: [],
       soundscapeQuality: "Muffled",
       visualEffects: ["Soft Glow", "Dust Particles", "Muted Tones"],
+    }
+  },
+  {
+    name: "Object ASMR",
+    settings: {
+      moods: ["Calm", "Cozy"],
+      cameraMovement: "Static",
+      cameraAngle: "Close-up",
+      cameraFocus: "Shallow Depth of Field",
+      soundscapePrimary: "Tapping on Glass",
+      soundscapeSecondary: ["Whispering"],
+      soundscapeQuality: "High-Fidelity (Binaural)",
+      visualEffects: ["Soft Glow", "Dust Particles"],
     }
   }
 ];
